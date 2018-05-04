@@ -24,7 +24,7 @@
     <section class="w3-container w3-border w3-border-grey">
       <h2>ToDo´s</h2>
       <to-do 
-      v-for="(todo, index) in todos" 
+      v-for="(todo, index) in uncompletedTodos" 
       :key="index"
       :todo="todo"
       :index="index"/>
@@ -32,6 +32,11 @@
 
     <section class="w3-container w3-border w3-border-grey">
       <h3>Done</h3>
+      <to-do 
+      v-for="(todo, index) in completedTodos" 
+      :key="index"
+      :todo="todo"
+      :index="index"/>
     </section>
 
   </div>
@@ -59,6 +64,14 @@ export default {
         });
         this.newTodo= '';
       }
+    }
+  },
+  computed: {
+    completedTodos () {
+      return this.todos.filter(todo => todo.completed);
+    },
+    uncompletedTodos () {
+      return this.todos.filter(todo => !todo.completed);
     }
   }
 }

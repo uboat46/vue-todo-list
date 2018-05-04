@@ -7,18 +7,7 @@
     </header>
 
     <section class="w3-container w3-border w3-border-grey w3-center w3-padding">
-      <input 
-      type="text" 
-      class="w3-input w3-border w3-half w3-margin w3-large" 
-      v-model="newTodo" 
-      @keyup.enter="addTodo">
-      
-      <button 
-      class="w3-button w3-green w3-round w3-margin w3-large" 
-      @click="addTodo">
-      Add todo</button>
-
-      <p class="w3-center w3-text-grey">{{newTodo}}</p>
+      <to-do-form @addedTodo="addTodo"/>
     </section>
 
     <section class="w3-container w3-border w3-border-grey">
@@ -31,7 +20,7 @@
     </section>
 
     <section class="w3-container w3-border w3-border-grey">
-      <h3>Done</h3>
+      <h2>Done</h2>
       <to-do 
       v-for="(todo, index) in completedTodos" 
       :key="index"
@@ -43,27 +32,25 @@
 </template>
 
 <script>
+import ToDoForm from './ToDoForm'
 import ToDo from './ToDo'
 
 export default {
   components: {
+    ToDoForm,
     ToDo
   },
   data () {
     return {
-      newTodo: '',
       todos: []
     }
   },
   methods: {
-    addTodo () {
-      if(this.newTodo) {
-        this.todos.push({
-          title: this.newTodo,
-          completed: false
-        });
-        this.newTodo= '';
-      }
+    addTodo (todo) {
+      this.todos.push({
+        title: todo,
+        completed: false
+      })
     }
   },
   computed: {

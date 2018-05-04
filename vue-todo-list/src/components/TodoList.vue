@@ -17,12 +17,17 @@
       class="w3-button w3-green w3-round w3-margin w3-large" 
       @click="addTodo">
       Add todo</button>
-      
+
       <p class="w3-center w3-text-grey">{{newTodo}}</p>
     </section>
 
     <section class="w3-container w3-border w3-border-grey">
-      <h3>ToDo´s</h3>
+      <h2>ToDo´s</h2>
+      <div class="w3-container w3-center" v-for="(todo, index) in todos" :key="index">
+        <label>{{index}}.- {{todo}}</label>
+        <input class="w3-check" type="checkbox">
+        <hr>
+      </div>
     </section>
 
     <section class="w3-container w3-border w3-border-grey">
@@ -36,13 +41,16 @@
 export default {
   data () {
     return {
-      newTodo: ''
+      newTodo: '',
+      todos: []
     }
   },
   methods: {
     addTodo () {
-      alert(this.newTodo);
-      this.newTodo= '';
+      if(this.newTodo) {
+        this.todos.push(this.newTodo);
+        this.newTodo= '';
+      }
     }
   }
 }

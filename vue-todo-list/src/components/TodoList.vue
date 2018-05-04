@@ -23,11 +23,11 @@
 
     <section class="w3-container w3-border w3-border-grey">
       <h2>ToDo´s</h2>
-      <div class="w3-container w3-center" v-for="(todo, index) in todos" :key="index">
-        <label>{{index}}.- {{todo}}</label>
-        <input class="w3-check" type="checkbox">
-        <hr>
-      </div>
+      <to-do 
+      v-for="(todo, index) in todos" 
+      :key="index"
+      :todo="todo"
+      :index="index"/>
     </section>
 
     <section class="w3-container w3-border w3-border-grey">
@@ -38,7 +38,12 @@
 </template>
 
 <script>
+import ToDo from './ToDo'
+
 export default {
+  components: {
+    ToDo
+  },
   data () {
     return {
       newTodo: '',
@@ -48,7 +53,10 @@ export default {
   methods: {
     addTodo () {
       if(this.newTodo) {
-        this.todos.push(this.newTodo);
+        this.todos.push({
+          title: this.newTodo,
+          completed: false
+        });
         this.newTodo= '';
       }
     }
